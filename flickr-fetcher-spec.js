@@ -83,8 +83,9 @@ describe('#transformPhotoToObj', () => {
 });
 
 describe('#fetchFlickrData()', () => {
-    it('should take an API key and fetcher function argument and return a promise for JSON data.',
-        (done) => {
+    it(
+        'should take an API key and fetcher function argument and return a promise for JSON data.',
+        () => {
             var apiKey = 'does not matter much what this is right now',
                 fakeData = {
                     'photos': {
@@ -117,13 +118,12 @@ describe('#fetchFlickrData()', () => {
                 },
                 fakeFetcher = (url) => {
                     var expectedURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='
-                        + apiKey + '&text=pugs&format=json&nojsoncallback=1';
-                    expect(url).to.equal(expectedURL);
+                        + apiKey + '&text=pugs&format=json&nojsoncallback=1'
+                    expect(url).to.equal(expectedURL)
                     return Promise.resolve(fakeData);
                 };
-                FlickrFetcher.fetchFlickrData(apiKey, fakeFetcher).then((actual) => {
-                    expect(actual).to.eql(fakeData);
-                    done();
-                })
-    });
+            return FlickrFetcher.fetchFlickrData(apiKey, fakeFetcher).then((actual) => {
+                expect(actual).to.eql(fakeData);
+            });
+        });
 });
