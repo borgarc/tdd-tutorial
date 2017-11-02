@@ -1,0 +1,22 @@
+{
+  "name": "tdd-tutorial",
+  "version": "1.0.0",
+  "description": "test driven develop tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borgarc/tdd-tutorial.git"
+  },
+  "author": "borja garcia villanueva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/borgarc/tdd-tutorial/issues"
+  },
+  "homepage": "https://github.com/borgarc/tdd-tutorial#readme",
+  "dependencies": {
+    "chai": "^4.1.2"
+  }
+}
