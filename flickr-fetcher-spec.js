@@ -63,12 +63,12 @@ describe('#transformPhotoToObj', () => {
         var actual = FlickrFetcher.transformPhotoToObj(input);
         expect(actual).to.eql(expected);
         input = {
-            id:       '24765033584',
-            owner:    '27294864@N02',
-            secret:   '3c190c104e',
-            server:   '1514',
-            farm:     2,
-            title:    'the other cate',
+            id: '24765033584',
+            owner: '27294864@N02',
+            secret: '3c190c104e',
+            server: '1514',
+            farm: 2,
+            title: 'the other cate',
             ispublic: 1,
             isfriend: 0,
             isfamily: 0
@@ -79,5 +79,51 @@ describe('#transformPhotoToObj', () => {
         }
         actual = FlickrFetcher.transformPhotoToObj(input);
         expect(actual).to.eql(expected);
+    });
+});
+
+describe('#fetchFlickrData()', () => {
+    it('should take an API key and fetcher function argument and return a promise for JSON data.',
+        (done) => {
+            var apiKey = 'does not matter much what this is right now',
+                fakeData = {
+                    'photos': {
+                        'page': 1,
+                        'pages': 2872,
+                        'perpage': 100,
+                        'total': '287170',
+                        'photo': [{
+                            'id': '24770505034',
+                            'owner': '97248275@N03',
+                            'secret': '31a9986429',
+                            'server': '1577',
+                            'farm': 2,
+                            'title': '20160229090898',
+                            'ispublic': 1,
+                            'isfriend': 0,
+                            'isfamily': 0
+                        }, {
+                            'id': '24770504484',
+                            'owner': '97248275@N03',
+                            'secret': '69dd90d5dd',
+                            'server': '1451',
+                            'farm': 2,
+                            'title': '20160229090903',
+                            'ispublic': 1,
+                            'isfriend': 0,
+                            'isfamily': 0
+                        }]
+                    }
+                },
+                fakeFetcher = (url) => {
+                    var expectedURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='
+                        + apiKey + '&text=pugs&format=json&nojsoncallback=1';
+                    expect(url).to.equal(expectedURL);
+                    return Promise.resolve(fakeData);
+                };
+                FlickrFetcher.fetchFlickrData(apiKey, fakeFetcher).then((actual) => {
+                    expect(actual).to.eql(fakeData);
+                    done();
+                })
     });
 });
